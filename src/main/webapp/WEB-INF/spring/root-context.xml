@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<context:component-scan base-package="managers" />
+		<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+			<property name="url" value="jdbc:mysql://localhost:3306/dlala_db"/>
+			<property name="username" value="root"/>
+			<property name="password" value=""/>
+		</bean>
+		<bean id="produitdao" class="dao.ProduitDAOImp">
+			<property name="dataSource" ref="datasource"></property>
+		</bean>
+		<bean id="userdao" class="dao.UserDAOImp">
+			<property name="dataSource" ref="datasource"></property>
+		</bean>
+		<bean id="promanager" class="managers.ProductManagers">
+			<property name="prodao" ref="produitdao"></property>
+			<property name="usdao" ref="userdao"></property>
+		</bean>
+		<bean id="usmanager" class="managers.UserManager">
+			<property name="prodao" ref="produitdao"></property>
+			<property name="usdao" ref="userdao"></property>
+		</bean>
+		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host" value="haouat.mohamed.ine@gmail.com"></property>
+		</bean>
+		
+		
+		
+		
+	
+</beans>
